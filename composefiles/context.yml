@@ -35,3 +35,4 @@ services:
           - node.hostname ==spNode01
 networks:
   net:
+ 
