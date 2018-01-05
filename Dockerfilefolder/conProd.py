@@ -2,7 +2,7 @@ import redis
 
 try:
     conn = redis.StrictRedis(
-        host='redis-server',
+        host='master',
         port=6379,
         password='88888888',
         ssl=False)
