@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  s3:
+    image: alpine:latest
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == spNode03
+    command: ping -c 1000 google.com
+    command: sleep 1000
+
+  s4: 
+    image: alpine:latest
+    deploy:
+      placement:
+        constraints:
+          - node.hostname ==spNode04
+    command: ping -c 1000 google.com
+    command: sleep 1000

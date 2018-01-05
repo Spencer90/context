@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  s1:
+    image: spencerjang/edgevirt
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == spNode01
+    networks:
+      hyp:
+        aliases:
+	  - con1
+    command: ping -c 1000 google.com 
+
+  s2:
+    image: spencerjang/edgevirt
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == spNode02
+    networks:
+      hyp:
+        aliases:
+          - con2
+    command: ping -c 1000 google.com
+
+  s3:
+    image: spencerjang/edgevirt
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == spNode03
+    networks:
+      hyp:
+        aliases:
+          - con3
+    command: ping -c 1000 google.com
+networks:
+  hyp:

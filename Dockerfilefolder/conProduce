@@ -1,0 +1,20 @@
+FROM redis:latest
+MAINTAINER spencerjang <sy.jang@kaist.ac.kr>
+
+RUN apt-get update && apt-get install -y \
+    bison \
+    python-dev \
+    python-pip \
+    gcc \
+    net-tools \ 
+    iputils-ping \
+    dnsutils \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+RUN pip install redis
+WORKDIR /data
+ADD conProd.py /data/
+
+
+EXPOSE 80
+

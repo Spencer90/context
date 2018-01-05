@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  master:
+    image: spencerjang/resinwheezy:latest
+    volumes:
+      - myvol:/var/lib/docker/result
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode01]
+    networks:
+      hyp:
+        aliases:
+          - con1
+    command: sleep infinity
+
+  u1t1s1:
+    image: spencerjang/resinwheezy:latest
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode03]
+    networks:
+      - hyp
+    command: sleep infinity
+  
+  u1t1s2:
+    image: spencerjang/resinwheezy:latest
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode04] 
+    networks:
+      - hyp
+    command: sleep infinity
+
+volumes:
+  myvol:
+
+networks:
+  hyp:

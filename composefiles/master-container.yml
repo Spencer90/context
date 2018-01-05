@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  mastercontainer:
+    image: spencerjang/workingresin
+    volumes:
+      - myvol:/var/lib/docker/result
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode01]
+    networks:
+      hyp:
+        aliases:
+          - con1
+    command: sleep 10
+    command: ping -c 1000 con2
+
+  user1_task1_section1:
+    image: spencerjang/workingresin
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode02]
+    networks:
+      hyp:
+        aliases:
+          - con2
+    command: sleep 10
+    command: ping -c 1000 con1
+  
+  user1_task1_section2:
+    image: spencerjang/workingresin
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode04] 
+    networks:
+      hyp:
+        aliases:
+          - con4
+    command: sleep 10
+    command: ping -c 1000 con1
+
+volumes:
+  myvol:
+networks:
+  hyp:

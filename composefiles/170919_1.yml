@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  master:
+    image: spencerjang/resinwithoutenv:latest
+    volumes:
+      - myvol:/var/lib/docker/result
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode01]
+    networks:
+      h:
+        aliases: 
+          - con1
+    command: ping -c 1000 con4
+
+  u1t1s1:
+    image: spencerjang/resinwithoutenv:latest
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode03]
+    networks:
+      h:
+        aliases: 
+          - con3
+    command: ping -c 1000 google.com
+  
+  u1t1s2:
+    image: spencerjang/resinwithoutenv:latest
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode04] 
+    networks:
+      h:
+        aliases: 
+          - con4
+    command: ping -c 1000 con1
+
+volumes:
+  myvol:
+
+networks:
+  h:

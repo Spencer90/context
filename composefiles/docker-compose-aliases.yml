@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  s1:
+    image: spencerjang/edgevirt
+    volumes:
+      - myvol:/var/lib/data1
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode01]
+    networks:
+      hyp:
+        aliases:
+          - con1
+    command: ping -c 1000 con2 
+
+  s2:
+    image: spencerjang/edgevirt
+    volumes:
+      - myvol:/var/lib/data2
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode02]
+    networks:
+      hyp:
+        aliases:
+          - con2
+    command: ping -c 1000 con1
+
+  s3:
+    image: spencerjang/edgevirt
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode04]
+    networks:
+      hyp:
+        aliases:
+          - con3
+    command: ping -c 1000 con1
+
+  s4:
+    image: spencerjang/edgevirt
+    deploy:
+      placement:
+        constraints: [node.hostname == spNode04]
+    networks:
+      hyp:
+        aliases:
+          - con4
+    command: ping -c 1000 con1
+volumes:
+  myvol:
+networks:
+  hyp:

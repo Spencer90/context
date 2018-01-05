@@ -1,0 +1,26 @@
+FROM resin/rpi-raspbian:wheezy
+MAINTAINER spencerjang <sy.jang@kaist.ac.kr>
+
+RUN apt-get update && apt-get install -y \
+    bison \
+    python-dev \
+    python-pip \
+    gcc \
+    net-tools \ 
+    iputils-ping \
+    dnsutils \
+    openssh-server \
+    openssh-client \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+
+#RUN apt-get update
+
+WORKDIR /data
+
+#CMD ["/bin/bash"]
+
+EXPOSE 80
+
+#ENV NAME world
+

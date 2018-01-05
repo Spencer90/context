@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  cg_3:
+    image: redis:latest
+    networks:
+      net:
+        aliases:
+          - node3
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == spNode03
+
+  cg_4: 
+    image: redis:latest
+    networks:
+      net:
+        aliases:
+          - node4
+    deploy:
+      placement:
+        constraints:
+          - node.hostname ==spNode04
+
+  cc:
+    image: redis:latest
+    networks:
+      net:
+        aliases:
+          - master
+    deploy:
+      placement:
+        constraints:
+          - node.hostname ==spNode01
+networks:
+  net:
