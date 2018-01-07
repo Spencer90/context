@@ -1,0 +1,9 @@
+FROM openjdk:7
+MAINTAINER spencerjang <sy.jang@kaist.ac.kr>
+
+COPY Server.java /usr/src/myapp
+WORKDIR /usr/src/myapp
+
+RUN javac Server.java
+
+CMD ["java", "Server"]
