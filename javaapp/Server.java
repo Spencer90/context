@@ -6,8 +6,10 @@ public class Server {
            ServerSocket ss=new ServerSocket(25000);  
            Socket s=ss.accept();//establishes connection   
            DataInputStream dis=new DataInputStream(s.getInputStream());  
-           String  str=(String)dis.readUTF();  
-           System.out.println("message= "+str);  
+           String str=(String)dis.readUTF();
+//           for (int i = 0; i < 100000; i++){
+//             System.out.println("messageCnt= "+i);  
+	   System.out.println("message="+str);
            ss.close();  
        }catch(Exception e){System.out.println(e);}  
    }  

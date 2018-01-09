@@ -1,9 +1,26 @@
 FROM openjdk:7
 MAINTAINER spencerjang <sy.jang@kaist.ac.kr>
 
+RUN apt-get update && apt-get install -y \
+	bison \
+	gcc \
+	net-tools \
+	iputils-ping \
+	dnsutils \
+	--no-install-recommends && \
+	rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /usr/src/myapp
 COPY Client.java /usr/src/myapp
+COPY runClient.sh /usr/src/myapp
 WORKDIR /usr/src/myapp
 
-RUN javac Client.java
+EXPOSE 25000
 
-CMD ["java", "Client"]
+RUN chmod 777 runClient.sh
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+#ENTRYPOINT ["/bin/sh"]
+
+#RUN javac Client.java
+#ENTRYPOINT ["/bin/sh"]
+#ENTRYPOINT ["./runClient.sh"]

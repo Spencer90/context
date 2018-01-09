@@ -1,10 +1,29 @@
 version: '3'
 
 services:
-  cg_3:
-    image: redis:latest
+  serv:
+    image: spencerjang/javaserver:0.1
+    ports:
+      - 25000:25000
     networks:
-      net:
+      javanet:
+        aliases:
+          - serv 
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == spNode01
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"] 
+      timeout: 5s
+      retries: 3
+
+  app_3:
+    image: spencerjang/javaclient:0.1
+    depends_on:
+      - serv
+    networks:
+      javanet:
         aliases:
           - node3
     deploy:
@@ -12,27 +31,18 @@ services:
         constraints:
           - node.hostname == spNode03
 
-  cg_4: 
-    image: redis:latest
+  app_4: 
+    image: spencerjang/javaclient:0.1
+    depends_on:
+      - serv
     networks:
-      net:
+      javanet:
         aliases:
           - node4
     deploy:
       placement:
         constraints:
           - node.hostname ==spNode04
-
-  cc:
-    image: redis:latest
-    networks:
-      net:
-        aliases:
-          - master
-    deploy:
-      placement:
-        constraints:
-          - node.hostname ==spNode01
 networks:
-  net:
+  javanet:
  

@@ -1,9 +1,13 @@
 FROM openjdk:7
 MAINTAINER spencerjang <sy.jang@kaist.ac.kr>
 
+RUN mkdir /usr/src/myapp
+COPY runServer.sh /usr/src/myapp
 COPY Server.java /usr/src/myapp
 WORKDIR /usr/src/myapp
 
-RUN javac Server.java
+EXPOSE 25000
 
-CMD ["java", "Server"]
+RUN chmod 777 runServer.sh
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+#ENTRYPOINT ["/bin/sh"]
