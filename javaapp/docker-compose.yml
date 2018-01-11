@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  serv:
+    image: spencerjang/javaserver:0.1
+    container_name: server
+    ports:
+      - 25000:25000
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == spNode01
+    networks:
+      jnet:
+        ipv4_address: 22.22.0.10
+
+  app3:
+    image: spencerjang/javaclient:0.1
+    container_name: client3
+    ports:
+      - 25003:25003
+    networks:
+      jnet:
+        ipv4_address: 22.22.0.13
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == spNode03
+
+  app4: 
+    image: spencerjang/javaclient:0.1
+    container_name: client4
+    ports:
+      - 25004:25004
+    networks:
+      jnet:
+        ipv4_address: 22.22.0.14
+    deploy:
+      placement:
+        constraints:
+          - node.hostname ==spNode04
+networks:
+  jnet:
+    ipam:
+      driver: overlay
+      config:
+        - subnet: 22.22.0.0/16
+#        - gateway: 22.22.0.1

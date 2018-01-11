@@ -8,37 +8,29 @@ services:
     networks:
       javanet:
         aliases:
-          - serv 
+          - serv_net
     deploy:
       placement:
         constraints:
           - node.hostname == spNode01
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"] 
-      timeout: 5s
-      retries: 3
 
-  app_3:
+  app3:
     image: spencerjang/javaclient:0.1
-    depends_on:
-      - serv
     networks:
       javanet:
         aliases:
-          - node3
+          - node3_net
     deploy:
       placement:
         constraints:
           - node.hostname == spNode03
 
-  app_4: 
+  app4: 
     image: spencerjang/javaclient:0.1
-    depends_on:
-      - serv
     networks:
       javanet:
         aliases:
-          - node4
+          - node4_net
     deploy:
       placement:
         constraints:
