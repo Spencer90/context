@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  serv:
+    image: spencerjang/javaserver:0.1
+    ports:
+      - 25000:25000
+    networks:
+      javanet:
+        aliases:
+          - serv_net
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == spNode01
+
+  app3:
+    image: spencerjang/javaclient:0.1
+    networks:
+      javanet:
+        aliases:
+          - node3_net
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == spNode03
+
+  app4: 
+    image: spencerjang/javaclient:0.1
+    networks:
+      javanet:
+        aliases:
+          - node4_net
+    deploy:
+      placement:
+        constraints:
+          - node.hostname ==spNode04
+networks:
+  javanet:
+ 

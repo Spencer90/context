@@ -1,0 +1,22 @@
+FROM openjdk:7
+MAINTAINER spencerjang <sy.jang@kaist.ac.kr>
+
+RUN apt-get update && apt-get install -y \
+	bison \
+	gcc \
+	net-tools \
+ 	iputils-ping \
+	dnsutils \
+ 	--no-install-recommends && \
+	rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /usr/src/myapp
+COPY runServer.sh /usr/src/myapp
+COPY Server.java /usr/src/myapp
+WORKDIR /usr/src/myapp
+
+EXPOSE 25000
+
+RUN chmod 777 runServer.sh
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+#ENTRYPOINT ["/bin/sh"]
